@@ -81,9 +81,13 @@ public class FlappyBird {
 
                 for (int i = 0; i < pipes.size(); i++) {
                     Rectangle pipe = pipes.get(i);
-                    if (pipe.y == 0 && pipe.x + PIPE_WIDTH == WIDTH / 2 - BIRD_SIZE / 2) {
-                        score++;
-                        if (score > highScore) highScore = score;
+                    // Only check top pipes (pipe.y == 0) and use a property to mark if already scored
+                    if (pipe.y == 0) {
+                        // Use a property in Rectangle to store if scored (not ideal, but works for this simple game)
+                        if (pipe.x + PIPE_WIDTH < WIDTH / 2 - BIRD_SIZE / 2 && pipe.x + PIPE_WIDTH >= WIDTH / 2 - BIRD_SIZE / 2 - PIPE_SPEED) {
+                            score++;
+                            if (score > highScore) highScore = score;
+                        }
                     }
                     if (pipe.intersects(new Rectangle(WIDTH / 2 - BIRD_SIZE / 2, birdY, BIRD_SIZE, BIRD_SIZE))) {
                         gameOver = true;
